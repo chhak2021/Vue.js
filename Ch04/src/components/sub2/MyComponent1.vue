@@ -1,5 +1,5 @@
 <template>
-  <h4>ref()</h4>
+  <h4>ref() / reactive()</h4>
   <p>
     message : {{ message }}
     <button @click="changeMessage">수정</button>
@@ -9,13 +9,12 @@
     <button @click="btnCountUp">증가</button>
   </p>
 
-  <h4>reactive()</h4>
   <p>
     name : {{ user.name }} / age : {{ user.age }}
     <button @click="changeUser">수정</button>
   </p>
 
-  <h4>computed()</h4>
+  <h4>computed() / watch()</h4>
   <p>
     result : {{ result }}<br />
     result2x : {{ result2x }}<br />
@@ -31,8 +30,6 @@
   <ul>
     <li v-for="person in josun">{{ person.name }}</li>
   </ul>
-
-  <h4>watch()</h4>
 </template>
 <script>
 import { ref, reactive, computed, watch } from "vue";
