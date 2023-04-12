@@ -28,6 +28,17 @@
     나이 : {{ user.age }}<br />
   </p>
 
+  <h4>Get 단축함수 예제</h4>
+  <input type="text" v-model="inputText" placeholder="아이디 입력" />
+  <button @click="btnGetUser1">User1 요청</button>
+  <button @click="btnGetUser2">User2 요청</button>
+  <p>
+    아이디 : {{ user.uid }}<br />
+    이름 : {{ user.name }}<br />
+    휴대폰 : {{ user.hp }}<br />
+    나이 : {{ user.age }}<br />
+  </p>
+
   <h4>Post 예제</h4>
   <form v-on:submit.prevent="registerUser">
     <table border="1">
@@ -106,6 +117,42 @@ const btnGetUser = function () {
     .catch((error) => {
       console.log(error);
     });
+};
+
+const btnGetUser1 = () => {
+  const jsonData = { uid: inputText.value };
+
+  axios
+    .get("http://localhost:8080/Ch09/user1", { params: jsonData })
+    .then((response) => {
+      console.log(response.data);
+      const data = response.data;
+      user.uid = data.uid;
+      user.name = data.name;
+      user.hp = data.hp;
+      user.age = data.age;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+const btnGetUser2 = async () => {
+  const jsonData = { uid: inputText.value };
+  try {
+    const response = await axios.get("http://localhost:8080/Ch09/user1", {
+      params: jsonData,
+    });
+
+    console.log(response.data);
+    const data = response.data;
+    user.uid = data.uid;
+    user.name = data.name;
+    user.hp = data.hp;
+    user.age = data.age;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const registerUser = () => {
