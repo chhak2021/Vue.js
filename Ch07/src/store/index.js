@@ -18,7 +18,7 @@ const store = createStore({
       context.commit("SET_USER", data);
     },
     login: function (context, user) {
-      axios
+      return axios
         .post("http://localhost:8080/Voard/user/login", user)
         .then((response) => {
           console.log(response);
@@ -28,10 +28,11 @@ const store = createStore({
 
           localStorage.setItem("accessToken", token);
           context.commit("SET_USER", user);
-          //router.push("/jwt/loginSuccess");
+          return response;
         })
         .catch((error) => {
           console.log(error);
+          throw error;
         });
     },
   },

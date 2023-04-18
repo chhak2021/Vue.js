@@ -33,8 +33,16 @@ const user = reactive({
 });
 
 const loginProc = () => {
-  store.dispatch("login", user);
-  router.push("/jwt/loginSuccess");
+  store
+    .dispatch("login", user)
+    .then((response) => {
+      console.log("1.response : " + response);
+      console.log("1.nick : " + response.data.user.nick);
+      router.push("/jwt/loginSuccess");
+    })
+    .catch((error) => {
+      console.log("1.error : " + error);
+    });
 };
 </script>
 <style scoped></style>

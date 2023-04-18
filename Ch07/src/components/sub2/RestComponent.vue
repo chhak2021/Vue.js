@@ -106,6 +106,7 @@ const btnGetUser = async () => {
   }
 };
 
+// axios put 전송 데이터 수신을 위해 백엔드(스프링부트)에서 꼭 @RequestBody 선언으로 데이터 수신
 const registerUser = () => {
   axios
     .post("http://localhost:8080/Ch09/user1", user)
