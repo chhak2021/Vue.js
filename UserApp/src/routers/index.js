@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import User1Main from "../components/user1/Main.vue";
 import User1List from "../components/user1/List.vue";
 import User1Register from "../components/user1/Register.vue";
+import User1Modify from "../components/user1/Modify.vue";
 import User2Main from "../components/user2/Main.vue";
 import User3Main from "../components/user3/Main.vue";
 import User4Main from "../components/user4/Main.vue";
@@ -20,6 +21,12 @@ const router = createRouter({
         { path: "", component: User1List },
         { path: "list", name: "User1List", component: User1List },
         { path: "register", name: "User1Register", component: User1Register },
+        {
+          path: "modify",
+          name: "User1Modify",
+          component: User1Modify,
+          props: true,
+        },
       ],
     },
     { path: "/user2", name: "User2Main", component: User2Main },

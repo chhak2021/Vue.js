@@ -8,27 +8,60 @@
       <th>나이</th>
       <th>관리</th>
     </tr>
-    <tr>
-      <td>a101</td>
-      <td>홍길동</td>
-      <td>010-1212-1001</td>
-      <td>22</td>
+    <tr v-for="user in state.users">
+      <td>{{ user.uid }}</td>
+      <td>{{ user.name }}</td>
+      <td>{{ user.hp }}</td>
+      <td>{{ user.age }}</td>
       <td>
-        <a href="#">수정</a>
-        <a href="#">삭제</a>
+        <a href="#" @click.prevent="modifyUser1(user)">수정</a>
+        <a href="#" @click.prevent="deleteUser1(user)">삭제</a>
       </td>
     </tr>
   </table>
 </template>
 <script setup>
 import axios from "axios";
-import { onBeforeMount } from "vue";
+import { useRouter } from "vue-router";
+import { onBeforeMount, reactive, ref } from "vue";
+
+const router = useRouter();
+
+const state = reactive({
+  users: [],
+});
+
+const modifyUser1 = (user) => {
+  router.push({ name: "User1Modify", params: user });
+};
+const deleteUser1 = (user) => {
+  const result = confirm("정말 삭제?");
+
+  if (!result) {
+    return;
+  }
+
+  axios
+    .delete(`http://localhost:8080/Ch09/user1/${user.uid}`)
+    .then((response) => {
+      console.log(response);
+
+      // 왜 reactive 상태값은 반응을 안하지???
+      state.users = response.data;
+
+      console.log("here1");
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
 
 onBeforeMount(() => {
   axios
     .get("http://localhost:8080/Ch09/user1s")
     .then((response) => {
       console.log(response);
+      state.users = response.data;
     })
     .catch((error) => {
       console.log(error);
