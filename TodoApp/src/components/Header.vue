@@ -1,16 +1,33 @@
 <template>
   <header>
     <div>
-      <input type="text" placeholder="할일을 입력하세요." />
-      <button>등록</button>
+      <input type="text" v-model="newTodo" placeholder="할일을 입력하세요." />
+      <button v-on:click="btnAddTodo">등록</button>
     </div>
   </header>
 </template>
 <script>
+import { ref } from "vue";
+
 export default {
   name: "Header",
-  setup() {
-    return {};
+  setup(props, context) {
+    const newTodo = ref("");
+
+    const btnAddTodo = () => {
+      console.log(newTodo.value);
+
+      if (newTodo.value !== "") {
+        // 상위 컴포넌트에 addTodo 이벤트 발생 시킴
+        context.emit("addTodo", newTodo.value);
+        newTodo.value = "";
+      }
+    };
+
+    return {
+      newTodo,
+      btnAddTodo,
+    };
   },
 };
 </script>
