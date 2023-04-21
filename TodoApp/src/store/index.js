@@ -17,8 +17,8 @@ const store = createStore({
     },
     SET_TODOS(state, todos) {
       todos.forEach((todo, index) => {
-        //console.log(todo.content);
-        state.todos.push(todo.content);
+        console.log(todo);
+        state.todos.push(todo);
       });
     },
   },
@@ -30,15 +30,23 @@ const store = createStore({
       axios
         .post("http://localhost:8383/app/todo", params)
         .then((response) => {
-          //console.log(response);
           context.commit("ADD_TODO", todo);
         })
         .catch((error) => {
           throw error;
         });
     },
-    removeTodo(context, index) {
-      context.commit("REMOVE_TODO", index);
+    removeTodo(context, data) {
+      axios
+        .delete("http://localhost:8383/app/todo", {
+          params: { no: data.no },
+        })
+        .then((response) => {
+          context.commit("REMOVE_TODO", data.index);
+        })
+        .catch((error) => {
+          throw error;
+        });
     },
     clearTodo(context) {
       axios
@@ -54,7 +62,6 @@ const store = createStore({
       axios
         .get("http://localhost:8383/app/todos")
         .then((response) => {
-          //console.log(response);
           const todos = response.data;
           context.commit("SET_TODOS", todos);
         })

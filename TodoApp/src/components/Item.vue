@@ -1,8 +1,8 @@
 <template>
   <li v-for="(todo, index) in todos">
     <i class="fa fa-check" aria-hidden="true"></i>
-    <span>{{ todo }}</span>
-    <button @click="btnDelete(index)">삭제</button>
+    <span>{{ todo.content }}</span>
+    <button @click="btnDelete(index, todo.no)">삭제</button>
   </li>
 </template>
 <script>
@@ -16,9 +16,8 @@ export default {
 
     const todos = computed(() => store.getters.todos);
 
-    const btnDelete = (index) => {
-      console.log("index : " + index);
-      store.dispatch("removeTodo", index);
+    const btnDelete = (index, no) => {
+      store.dispatch("removeTodo", { index, no });
     };
 
     return {
