@@ -1,13 +1,12 @@
 <template>
   <main>
     <ul>
-      <Item v-for="value in todos" v-bind:todo="value" />
+      <Item />
     </ul>
   </main>
 </template>
 <script>
 import Item from "./Item.vue";
-import { useStore } from "vuex";
 
 export default {
   name: "Main",
@@ -15,10 +14,7 @@ export default {
     Item,
   },
   setup() {
-    const store = useStore();
-    const todos = store.getters.todos;
-
-    return { todos };
+    return {};
   },
 };
 </script>
