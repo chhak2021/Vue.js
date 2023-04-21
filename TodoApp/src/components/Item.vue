@@ -1,15 +1,20 @@
 <template>
   <li>
     <i class="fa fa-check" aria-hidden="true"></i>
-    <span>청소하기</span>
+    <span>{{ todo }}</span>
     <button>삭제</button>
   </li>
 </template>
 <script>
 export default {
   name: "Item",
-  setup() {
-    return {};
+  props: {
+    todo: String,
+  },
+  setup(props) {
+    const todo = props.todo;
+
+    return { todo };
   },
 };
 </script>

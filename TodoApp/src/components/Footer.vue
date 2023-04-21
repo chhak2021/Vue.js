@@ -22,6 +22,8 @@ footer {
 footer > button {
   width: 100px;
   height: 30px;
-  color: #e20303;
+  background-color: #e20303;
+  border: none;
+  color: white;
 }
 </style>

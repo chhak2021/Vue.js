@@ -1,17 +1,24 @@
 <template>
   <main>
-    <ul></ul>
+    <ul>
+      <Item v-for="value in todos" v-bind:todo="value" />
+    </ul>
   </main>
 </template>
 <script>
 import Item from "./Item.vue";
+import { useStore } from "vuex";
+
 export default {
   name: "Main",
   components: {
     Item,
   },
   setup() {
-    return {};
+    const store = useStore();
+    const todos = store.getters.todos;
+
+    return { todos };
   },
 };
 </script>
