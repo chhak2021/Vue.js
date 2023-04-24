@@ -1,0 +1,45 @@
+<template>
+  <v-app>
+    <v-main>
+      <v-container>
+        <v-card class="mx-auto mt-16" max-width="400">
+          <v-card-item>
+            <v-card-title>로그인</v-card-title>
+          </v-card-item>
+          <v-card-text>
+            <v-container>
+              <v-row>
+                <v-col cols="8">
+                  <v-text-field
+                    label="아이디"
+                    prepend-icon="mdi-account"
+                    variant="underlined"
+                    hide-details="true"
+                  ></v-text-field>
+
+                  <v-text-field
+                    label="비밀번호"
+                    prepend-icon="mdi-lock"
+                    variant="underlined"
+                    hide-details="true"
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="4">
+                  <v-btn color="primary" height="90" block class="mt-2"
+                    >로그인</v-btn
+                  ></v-col
+                >
+              </v-row>
+            </v-container>
+          </v-card-text>
+
+          <v-card-actions class="float-right">
+            <v-btn>회원가입</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-container>
+    </v-main>
+  </v-app>
+</template>
+<script setup></script>
+<style scoped></style>
