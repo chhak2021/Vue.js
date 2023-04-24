@@ -1,5 +1,8 @@
 <template>
   <v-app>
+    <v-app-bar>
+      <v-toolbar-title>로그인</v-toolbar-title>
+    </v-app-bar>
     <v-main>
       <v-container>
         <v-card class="mx-auto mt-16" max-width="400">
@@ -25,7 +28,12 @@
                   ></v-text-field>
                 </v-col>
                 <v-col cols="4">
-                  <v-btn color="primary" height="90" block class="mt-2"
+                  <v-btn
+                    color="primary"
+                    width="90"
+                    height="90"
+                    class="mt-2"
+                    @click="btnLogin"
                     >로그인</v-btn
                   ></v-col
                 >
@@ -34,12 +42,24 @@
           </v-card-text>
 
           <v-card-actions class="float-right">
-            <v-btn>회원가입</v-btn>
+            <v-btn @click="btnRegister">회원가입</v-btn>
           </v-card-actions>
         </v-card>
       </v-container>
     </v-main>
   </v-app>
 </template>
-<script setup></script>
+<script setup>
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+
+const btnRegister = () => {
+  router.push("/user/terms");
+};
+
+const btnLogin = () => {
+  router.push("/list");
+};
+</script>
 <style scoped></style>
