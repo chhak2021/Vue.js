@@ -16,6 +16,7 @@
           <v-checkbox
             class="d-flex justify-end"
             label="동의합니다."
+            v-model="isCheck1"
           ></v-checkbox>
 
           <v-textarea
@@ -28,6 +29,7 @@
           <v-checkbox
             class="d-flex justify-end"
             label="동의합니다."
+            v-model="isCheck2"
           ></v-checkbox>
           <v-sheet class="text-center">
             <v-btn class="mr-2" @click="btnCancel">취소</v-btn>
@@ -40,22 +42,31 @@
 </template>
 <script setup>
 import axios from "axios";
+import { ref } from "vue";
 import { reactive, onBeforeMount } from "vue";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
 
-const btnCancel = () => {
-  router.push("/user/login");
-};
-const btnNext = () => {
-  router.push("/user/register");
-};
+const isCheck1 = ref(false);
+const isCheck2 = ref(false);
 
 const value = reactive({
   terms: null,
   privacy: null,
 });
+
+const btnCancel = () => {
+  router.push("/user/login");
+};
+
+const btnNext = () => {
+  if (isCheck1.value && isCheck2.value) {
+    router.push("/user/register");
+  } else {
+    alert("동의체크를 하셔야 합니다.");
+  }
+};
 
 onBeforeMount(() => {
   axios
