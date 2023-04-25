@@ -11,7 +11,7 @@
             variant="outlined"
             rows="10"
             hide-details="true"
-            model-value="내용입니다."
+            v-model="value.terms"
           ></v-textarea>
           <v-checkbox
             class="d-flex justify-end"
@@ -23,7 +23,7 @@
             variant="outlined"
             rows="10"
             hide-details="true"
-            model-value="내용입니다."
+            v-model="value.privacy"
           ></v-textarea>
           <v-checkbox
             class="d-flex justify-end"
@@ -39,6 +39,8 @@
   </v-app>
 </template>
 <script setup>
+import axios from "axios";
+import { reactive, onBeforeMount } from "vue";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
@@ -49,5 +51,24 @@ const btnCancel = () => {
 const btnNext = () => {
   router.push("/user/register");
 };
+
+const value = reactive({
+  terms: null,
+  privacy: null,
+});
+
+onBeforeMount(() => {
+  axios
+    .get("http://localhost:8080/Voard/user/terms")
+    .then((response) => {
+      console.log(response);
+
+      value.terms = response.data.terms;
+      value.privacy = response.data.privacy;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+});
 </script>
 <style scoped></style>
