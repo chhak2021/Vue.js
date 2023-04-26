@@ -24,12 +24,20 @@
             <v-btn color="primary" @click="btnWrite" class="ml-2">글등록</v-btn>
           </v-sheet>
         </v-sheet>
+        <v-dialog v-model="dialog" width="400">
+          <v-card>
+            <v-card-text> 등록 완료 </v-card-text>
+            <v-card-actions>
+              <v-btn color="primary" @click="dialog = false">확인</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
       </v-container>
     </v-main>
   </v-app>
 </template>
 <script setup>
-import { reactive, computed } from "vue";
+import { reactive, ref } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 import axios from "axios";
@@ -43,22 +51,22 @@ const article = reactive({
   uid: null,
 });
 
+const dialog = ref(false);
+
 const btnCancel = () => {
   router.push("/list");
 };
 const btnWrite = () => {
-  //alert("등록완료");
   const user = store.getters.user;
   article.uid = user.uid;
 
-  console.log(article);
-
+  //console.log(article);
   axios
     .post("http://localhost:8080/Voard/write", article)
     .then((response) => {
       console.log(response);
-
-      //router.push("/user/login");
+      //alert('등록 완료...');
+      dialog.value = true;
     })
     .catch((error) => {
       console.log(error);
