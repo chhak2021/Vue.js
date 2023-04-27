@@ -43,8 +43,10 @@
 
           <div class="text-center">
             <v-pagination
-              :length="100"
+              :length="state.data.lastPage"
               :total-visible="5"
+              v-model="page"
+              @click="pageClickHandler"
               rounded="circle"
             ></v-pagination>
           </div>
@@ -59,6 +61,7 @@ import { useStore } from "vuex";
 import { computed, onBeforeMount } from "vue";
 import axios from "axios";
 import { reactive } from "vue";
+import { ref } from "vue";
 
 const router = useRouter();
 const store = useStore();
@@ -69,6 +72,8 @@ const state = reactive({
   data: {},
 });
 
+const page = ref(1);
+
 const btnLogout = () => {
   localStorage.removeItem("accessToken");
   router.push("/user/login");
@@ -77,9 +82,17 @@ const btnWrite = () => {
   router.push("/write");
 };
 
+const pageClickHandler = () => {
+  getArticles(page.value);
+};
+
 onBeforeMount(() => {
+  getArticles(1);
+});
+
+const getArticles = (page) => {
   axios
-    .get("http://localhost:8080/Voard/list")
+    .get("/list?pg=" + page)
     .then((response) => {
       console.log(response);
       state.data = response.data;
@@ -87,6 +100,6 @@ onBeforeMount(() => {
     .catch((error) => {
       console.log(error);
     });
-});
+};
 </script>
 <style scoped></style>
